@@ -1,4 +1,3 @@
-
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
