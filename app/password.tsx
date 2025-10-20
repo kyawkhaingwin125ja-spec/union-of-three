@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
@@ -19,14 +20,16 @@ import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 export default function PasswordScreen() {
+  const router = useRouter();
+
   const [isActive, setIsActive] = useState(false);
-  const [password, setPassword] = useState(["", "", "", "","",""]);
+  const [password, setPassword] = useState(["", "", "", "", "", ""]);
   const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
   const [showKeyboard, setShowKeyboard] = useState(false);
   const inputsRef = useRef<TextInput[]>([]);
-
   const keyboardAnim = useRef(new Animated.Value(0)).current;
 
+  // Animate keyboard open/close
   useEffect(() => {
     Animated.timing(keyboardAnim, {
       toValue: showKeyboard ? 1 : 0,
@@ -36,6 +39,7 @@ export default function PasswordScreen() {
     }).start();
   }, [showKeyboard]);
 
+  // Handle input change for each box
   const handleChange = (index: number, value: string) => {
     const newPassword = [...password];
     newPassword[index] = value;
@@ -43,17 +47,22 @@ export default function PasswordScreen() {
 
     if (value) {
       setVisibleIndex(index);
-      setTimeout(() => setVisibleIndex(null), 500);
+      setTimeout(() => setVisibleIndex(null), 300);
+    }
+
+    // ✅ Auto-check when all 6 digits filled
+    if (newPassword.join("").length === 6) {
+      checkPassword(newPassword.join(""));
     }
   };
 
+  // Handle number key press
   const handleKeyPress = (num: string) => {
     const nextIndex = password.findIndex((p) => p === "");
-    if (nextIndex !== -1) {
-      handleChange(nextIndex, num);
-    }
+    if (nextIndex !== -1) handleChange(nextIndex, num);
   };
 
+  // Handle backspace
   const handleBackspace = () => {
     const lastIndex = password
       .map((p, i) => (p ? i : -1))
@@ -62,11 +71,13 @@ export default function PasswordScreen() {
     if (lastIndex !== undefined) handleChange(lastIndex, "");
   };
 
-  const handleArrowPress = () => {
-    console.log("Arrow pressed!");
+  // ✅ Check if the code matches "123456"
+  const checkPassword = (input: string) => {
+    if (input === "123456") {
+      router.push("/password_typing"); // navigate to next screen
+    }
   };
 
-  // Animate keyboard and move password frame up
   const keyboardTranslateY = keyboardAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [SCREEN_HEIGHT, 0],
@@ -103,38 +114,36 @@ export default function PasswordScreen() {
         </Pressable>
 
         <Text style={styles.helloText}>Hello, Kyaw!</Text>
-        <Text style={styles.passwordText}>Type your password</Text>
+        <Text style={styles.passwordText}>Enter your 6-digit code</Text>
 
-        
- <TouchableOpacity
- activeOpacity={1}
- hitSlop={20}
- onPress={() => setShowKeyboard(true)}
- style={styles.passwordFrame}
->
-
-  {password.map((value, index) => (
-    <TextInput
-      key={index}
-      ref={(ref) => {
-        if (ref) inputsRef.current[index] = ref;
-      }}
-      value={visibleIndex === index ? value : value ? "•" : ""}
-      style={styles.input}
-      editable={false}
-      textAlign="center"
-    />
-  ))}
-</TouchableOpacity>
-
+        <TouchableOpacity
+          activeOpacity={1}
+          hitSlop={20}
+          onPress={() => setShowKeyboard(true)}
+          style={styles.passwordFrame}
+        >
+          {password.map((value, index) => (
+            <TextInput
+              key={index}
+              ref={(ref) => {
+                if (ref) inputsRef.current[index] = ref;
+              }}
+              value={visibleIndex === index ? value : value ? "•" : ""}
+              style={styles.input}
+              editable={false}
+              textAlign="center"
+            />
+          ))}
+        </TouchableOpacity>
       </Animated.View>
 
       <View style={styles.bottomBar} />
 
+      {/* ✅ Changed "Not me?" → "Resend" */}
       <View style={styles.notMeContainer}>
-        <Text style={styles.notMeText}>Not me?</Text>
-        <TouchableOpacity style={styles.arrowButton} onPress={handleArrowPress}>
-          <Ionicons name="arrow-forward" size={18} color="#FFFFFF" />
+        <Text style={styles.notMeText}>Resend</Text>
+        <TouchableOpacity style={styles.arrowButton} onPress={() => console.log("Resend code")}>
+          <Ionicons name="refresh" size={18} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
 
@@ -143,14 +152,11 @@ export default function PasswordScreen() {
         style={[styles.keyboard, { transform: [{ translateY: keyboardTranslateY }] }]}
       >
         {["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].map((num) => (
-          <TouchableOpacity
-            key={num}
-            style={styles.key}
-            onPress={() => handleKeyPress(num)}
-          >
+          <TouchableOpacity key={num} style={styles.key} onPress={() => handleKeyPress(num)}>
             <Text style={styles.keyText}>{num}</Text>
           </TouchableOpacity>
         ))}
+
         <TouchableOpacity style={styles.key} onPress={handleBackspace}>
           <Text style={styles.keyText}>⌫</Text>
         </TouchableOpacity>
@@ -163,7 +169,10 @@ const styles = StyleSheet.create({
   screen: { flex: 1 },
   background: {
     position: "absolute",
-    top: 0, left: 0, right: 0, bottom: 0,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     width: "100%",
     height: "100%",
     justifyContent: "center",
@@ -217,7 +226,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(12.64),
     paddingVertical: verticalScale(6.74),
     borderRadius: moderateScale(8),
-    
     backgroundColor: "#FFFFFF",
   },
   input: {

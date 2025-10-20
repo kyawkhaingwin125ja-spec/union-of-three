@@ -1,24 +1,23 @@
-// app/password_typing.tsx
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-    Dimensions,
-    Image,
-    ImageBackground,
-    Pressable,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  Image,
+  ImageBackground,
+  Pressable,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 export default function PasswordTyping() {
-  const navigation = useNavigation<any>();
+  const router = useRouter(); // ✅ only use expo-router navigation
   const [isActive, setIsActive] = useState(false);
   const [shift, setShift] = useState(false);
   const [numbersMode, setNumbersMode] = useState(false);
@@ -49,7 +48,8 @@ export default function PasswordTyping() {
     } else if (key === "Go") {
       if (password === correctPassword) {
         setStatus("success");
-        navigation.navigate("hello_card");
+        // ✅ navigate with expo-router
+        router.push("/hello_card");
       } else {
         setStatus("error");
       }
@@ -122,7 +122,7 @@ export default function PasswordTyping() {
 
         {status === "error" && (
           <Pressable
-            onPress={() => navigation.navigate("password_recovery")}
+            onPress={() => router.push("/recovery")} // ✅ changed from navigation.navigate()
           >
             <Text style={styles.forgetText}>Forget your password?</Text>
           </Pressable>
