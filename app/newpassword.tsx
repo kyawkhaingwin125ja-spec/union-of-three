@@ -1,3 +1,4 @@
+
 import ScreenWrapper from '@/components/ScreenWrapper'
 import React from 'react'
 import { Image, ImageBackground, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
@@ -82,4 +83,4 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   }
-})
+});
