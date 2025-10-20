@@ -20,7 +20,7 @@ const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 export default function PasswordScreen() {
   const [isActive, setIsActive] = useState(false);
-  const [password, setPassword] = useState(["", "", "", ""]);
+  const [password, setPassword] = useState(["", "", "", "","",""]);
   const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
   const [showKeyboard, setShowKeyboard] = useState(false);
   const inputsRef = useRef<TextInput[]>([]);

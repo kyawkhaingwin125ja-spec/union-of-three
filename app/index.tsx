@@ -1,361 +1,74 @@
-<<<<<<< HEAD
+import {
+  Raleway_300Light,
+  Raleway_700Bold,
+  useFonts,
+} from "@expo-google-fonts/raleway";
+import { Ionicons } from "@expo/vector-icons"; // for arrow icon
 import { useRouter } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  moderateScale,
+  scale,
+  verticalScale,
+} from "react-native-size-matters";
 
 export default function Index() {
-  const router = useRouter();
+  const router=useRouter();
+  const [isActive, setIsActive] = useState(false);
+
+  const [fontsLoaded] = useFonts({
+    Raleway_700Bold,
+    Raleway_300Light,
+  });
+
+  if (!fontsLoaded) return null;
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={()=>router.push('/login')}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>Go to Login</Text>
-      </TouchableOpacity>
-    </View>
-=======
-// import {
-//   Raleway_300Light,
-//   Raleway_700Bold,
-//   useFonts,
-// } from "@expo-google-fonts/raleway";
-// import { Ionicons } from "@expo/vector-icons"; // for arrow icon
-// import React, { useState } from "react";
-// import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-// import {
-//   moderateScale,
-//   scale,
-//   verticalScale,
-// } from "react-native-size-matters";
-
-// export default function Index() {
-//   const [isActive, setIsActive] = useState(false);
-
-//   const [fontsLoaded] = useFonts({
-//     Raleway_700Bold,
-//     Raleway_300Light,
-//   });
-
-//   if (!fontsLoaded) return null;
-
-//   return (
-//     <View style={styles.container}>
-//       {/* Ellipse shape (main) */}
-//       <Pressable
-//         onPressIn={() => setIsActive(true)}
-//         onPressOut={() => setIsActive(false)}
-//         onHoverIn={() => setIsActive(true)}
-//         onHoverOut={() => setIsActive(false)}
-//         style={[styles.ellipse, isActive && styles.ellipseActive]}
-//       />
-
-//       {/* Title */}
-//       <Text style={styles.shoppeText}>Shoppe</Text>
-
-//       {/* Subtitle */}
-//       <Text style={styles.subtitleText}>
-//         Beautiful eCommerce UI Kit {"\n"}for your online store
-//       </Text>
-
-//       {/* Button */}
-//       <TouchableOpacity style={styles.startButton} >
-//         <Text style={styles.startButtonText}>Let’s get started</Text>
-//       </TouchableOpacity>
-
-//       {/* Bottom section */}
-//       <View style={styles.bottomContainer}>
-//         <Text style={styles.accountText}>I already have an account</Text>
-//         <TouchableOpacity style={styles.arrowButton} >
-//           <Ionicons name="arrow-forward" size={18} color="#FFFFFF" />
-//         </TouchableOpacity>
-//       </View>
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   // Root container
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#F2F2F2",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-
-//   // Ellipse (top)
-//   ellipse: {
-//     position: "absolute",
-//     top: verticalScale(100),
-//     alignSelf: "center",
-//     width: scale(134),
-//     height: scale(134),
-//     borderRadius: scale(67),
-//     backgroundColor: "#F2F2F2",
-//     borderWidth: 2,
-//     borderColor: "transparent",
-//     elevation: 5,
-//     shadowColor: "#000",
-//     shadowOpacity: 0.2,
-//     shadowRadius: 4,
-//   },
-//   ellipseActive: {
-//     borderColor: "#004CFF",
-//   },
-
-//   // Title
-//   shoppeText: {
-//     marginTop: verticalScale(200),
-//     fontFamily: "Raleway_700Bold",
-//     fontSize: moderateScale(48),
-//     color: "#202020",
-//   },
-
-//   // Subtitle
-//   subtitleText: {
-//     marginTop: verticalScale(20),
-//     textAlign: "center",
-//     width: "80%",
-//     lineHeight: verticalScale(28),
-//     fontSize: moderateScale(17),
-//     fontFamily: "Raleway_300Light",
-//     color: "#202020",
-//   },
-
-//   // Start button
-//   startButton: {
-//     marginTop: verticalScale(60),
-//     width: "85%",
-//     height: verticalScale(55),
-//     backgroundColor: "#004CFF",
-//     borderRadius: moderateScale(12),
-//     justifyContent: "center",
-//     alignItems: "center",
-//   },
-
-//   startButtonText: {
-//     color: "#FFFFFF",
-//     fontSize: moderateScale(18),
-//     fontFamily: "Raleway_700Bold",
-//   },
-
-//   // Bottom section (account + arrow)
-//   bottomContainer: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     marginTop: verticalScale(30),
-//   },
-
-//   accountText: {
-//     fontFamily: "Raleway_300Light",
-//     fontSize: moderateScale(15),
-//     color: "#202020",
-//   },
-
-//   arrowButton: {
-//     marginLeft: scale(10),
-//     width: scale(30),
-//     height: scale(30),
-//     borderRadius: scale(15),
-//     backgroundColor: "#004CFF",
-//     justifyContent: "center",
-//     alignItems: "center",
-//   },
-// });
-import { Ionicons } from "@expo/vector-icons";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  Dimensions,
-  Easing,
-  Image,
-  ImageBackground,
-  Pressable,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { moderateScale, scale, verticalScale } from "react-native-size-matters";
-
-const { height: SCREEN_HEIGHT } = Dimensions.get("window");
-
-export default function PasswordScreen() {
-  const [isActive, setIsActive] = useState(false);
-  const [password, setPassword] = useState(["", "", "", ""]);
-  const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
-  const [showKeyboard, setShowKeyboard] = useState(false);
-  const inputsRef = useRef<TextInput[]>([]);
-
-  const keyboardAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(keyboardAnim, {
-      toValue: showKeyboard ? 1 : 0,
-      duration: 300,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-  }, [showKeyboard]);
-
-  const handleChange = (index: number, value: string) => {
-    const newPassword = [...password];
-    newPassword[index] = value;
-    setPassword(newPassword);
-
-    if (value) {
-      setVisibleIndex(index);
-      setTimeout(() => setVisibleIndex(null), 500);
-    }
-  };
-
-  const handleKeyPress = (num: string) => {
-    const nextIndex = password.findIndex((p) => p === "");
-    if (nextIndex !== -1) {
-      handleChange(nextIndex, num);
-    }
-  };
-
-  const handleBackspace = () => {
-    const lastIndex = password
-      .map((p, i) => (p ? i : -1))
-      .filter((i) => i !== -1)
-      .pop();
-    if (lastIndex !== undefined) handleChange(lastIndex, "");
-  };
-
-  const handleArrowPress = () => {
-    console.log("Arrow pressed!");
-  };
-
-  // Animate keyboard and move password frame up
-  const keyboardTranslateY = keyboardAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [SCREEN_HEIGHT, 0],
-  });
-
-  const passwordTranslateY = keyboardAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, -verticalScale(120)],
-  });
-
-  return (
-    <Pressable style={styles.screen} onPress={() => setShowKeyboard(false)}>
-      <ImageBackground
-        source={require("../assets/images/password.png")}
-        style={styles.background}
-        resizeMode="cover"
+      {/* Ellipse shape (main) */}
+      <Pressable
+        onPressIn={() => setIsActive(true)}
+        onPressOut={() => setIsActive(false)}
+        onHoverIn={() => setIsActive(true)}
+        onHoverOut={() => setIsActive(false)}
+        style={[styles.ellipse, isActive && styles.ellipseActive]}
       />
 
-      <StatusBar backgroundColor="#000000" barStyle="light-content" />
+      {/* Title */}
+      <Text style={styles.shoppeText}>Shoppe</Text>
 
-      <Animated.View
-        style={[styles.container, { transform: [{ translateY: passwordTranslateY }] }]}
-      >
-        <Pressable
-          onPressIn={() => setIsActive(true)}
-          onPressOut={() => setIsActive(false)}
-          style={[styles.ellipse, isActive && styles.ellipseActive]}
-        >
-          <Image
-            source={require("../assets/images/artist.png")}
-            resizeMode="cover"
-            style={styles.insideEllipseImage}
-          />
-        </Pressable>
+      {/* Subtitle */}
+      <Text style={styles.subtitleText}>
+        Beautiful eCommerce UI Kit {"\n"}for your online store
+      </Text>
 
-        <Text style={styles.helloText}>Hello, Kyaw!</Text>
-        <Text style={styles.passwordText}>Type your password</Text>
+      {/* Button */}
+      <TouchableOpacity style={styles.startButton} onPress={()=>router.push('/login')}>
+        <Text style={styles.startButtonText}>Let’s get started</Text>
+      </TouchableOpacity>
 
-        
-        <View style={styles.passwordFrame}>
-  {password.map((value, index) => (
-    <Pressable
-      key={index}
-      onPress={() => setShowKeyboard(true)} // only this box triggers
-      hitSlop={15} // expand touch area slightly for easier tapping
-      style={{ flex: 1 }}
-    >
-      <View pointerEvents="none">
-        <TextInput
-          ref={(ref) => {
-            if (ref) inputsRef.current[index] = ref;
-          }}
-          value={visibleIndex === index ? value : value ? "•" : ""}
-          style={styles.input}
-          editable={false} // disable native keyboard
-          textAlign="center"
-        />
-      </View>
-    </Pressable>
-  ))}
-</View>
-
-
-      </Animated.View>
-
-      <View style={styles.bottomBar} />
-
-      <View style={styles.notMeContainer}>
-        <Text style={styles.notMeText}>Not me?</Text>
-        <TouchableOpacity style={styles.arrowButton} onPress={handleArrowPress}>
+      {/* Bottom section */}
+      <View style={styles.bottomContainer}>
+        <Text style={styles.accountText}>I already have an account</Text>
+        <TouchableOpacity style={styles.arrowButton} >
           <Ionicons name="arrow-forward" size={18} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
-
-      {/* 🔹 Custom Keyboard */}
-      <Animated.View
-        style={[styles.keyboard, { transform: [{ translateY: keyboardTranslateY }] }]}
-      >
-        {["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].map((num) => (
-          <TouchableOpacity
-            key={num}
-            style={styles.key}
-            onPress={() => handleKeyPress(num)}
-          >
-            <Text style={styles.keyText}>{num}</Text>
-          </TouchableOpacity>
-        ))}
-        <TouchableOpacity style={styles.key} onPress={handleBackspace}>
-          <Text style={styles.keyText}>⌫</Text>
-        </TouchableOpacity>
-      </Animated.View>
-    </Pressable>
->>>>>>> 917750e8fc2b59ab84551bd981a052b8901ece9f
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
+  // Root container
   container: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: "#F2F2F2",
     alignItems: "center",
-    backgroundColor:"white"
-  },
-  button: {
-    backgroundColor: "#007AFF",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-=======
-  screen: { flex: 1 },
-  background: {
-    position: "absolute",
-    top: 0, left: 0, right: 0, bottom: 0,
-    width: "100%",
-    height: "100%",
     justifyContent: "center",
-    alignItems: "center",
   },
-  container: { flex: 1, backgroundColor: "transparent" },
+
+  // Ellipse (top)
   ellipse: {
     position: "absolute",
     top: verticalScale(100),
@@ -363,82 +76,67 @@ const styles = StyleSheet.create({
     width: scale(134),
     height: scale(134),
     borderRadius: scale(67),
-    backgroundColor: "#FFFFFF",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-    borderWidth: 3,
+    backgroundColor: "#F2F2F2",
+    borderWidth: 2,
     borderColor: "transparent",
+    elevation: 5,
     shadowColor: "#000",
     shadowOpacity: 0.2,
     shadowRadius: 4,
   },
-  ellipseActive: { borderColor: "#004CFF" },
-  insideEllipseImage: { width: "100%", height: "100%", borderRadius: scale(67) },
-  helloText: {
-    position: "absolute",
-    top: verticalScale(280),
-    alignSelf: "center",
+  ellipseActive: {
+    borderColor: "#004CFF",
+  },
+
+  // Title
+  shoppeText: {
+    marginTop: verticalScale(200),
     fontFamily: "Raleway_700Bold",
     fontSize: moderateScale(48),
     color: "#202020",
   },
-  passwordText: {
-    position: "absolute",
-    top: verticalScale(380),
-    alignSelf: "center",
-    fontFamily: "NunitoSans_400Regular",
-    fontSize: moderateScale(19),
+
+  // Subtitle
+  subtitleText: {
+    marginTop: verticalScale(20),
+    textAlign: "center",
+    width: "80%",
+    lineHeight: verticalScale(28),
+    fontSize: moderateScale(17),
+    fontFamily: "Raleway_300Light",
     color: "#202020",
   },
-  passwordFrame: {
-    position: "absolute",
-    top: verticalScale(420),
-    alignSelf: "center",
-    width: scale(213),
-    height: verticalScale(50.56),
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: scale(12.64),
-    paddingVertical: verticalScale(6.74),
-    borderRadius: moderateScale(8),
-    
-    backgroundColor: "#FFFFFF",
-  },
-  input: {
-    flex: 1,
-    marginHorizontal: scale(6.32 / 2),
-    height: "100%",
-    fontSize: moderateScale(20),
-    textAlign: "center",
-    textAlignVertical: "center",
-    borderWidth: 1,
-    borderRadius: scale(10.11),
-    backgroundColor: "#fff",
-    borderColor: "#ccc",
-  },
-  bottomBar: {
-    position: "absolute",
-    bottom: verticalScale(20),
-    alignSelf: "center",
-    width: scale(134),
-    height: verticalScale(5),
-    backgroundColor: "#000000",
-    borderRadius: scale(34),
-  },
-  notMeContainer: {
-    position: "absolute",
-    bottom: verticalScale(50),
-    flexDirection: "row",
-    alignSelf: "center",
+
+  // Start button
+  startButton: {
+    marginTop: verticalScale(60),
+    width: "85%",
+    height: verticalScale(55),
+    backgroundColor: "#004CFF",
+    borderRadius: moderateScale(12),
+    justifyContent: "center",
     alignItems: "center",
   },
-  notMeText: {
-    fontSize: moderateScale(16),
-    color: "#000",
-    fontFamily: "NunitoSans_400Regular",
+
+  startButtonText: {
+    color: "#FFFFFF",
+    fontSize: moderateScale(18),
+    fontFamily: "Raleway_700Bold",
   },
+
+  // Bottom section (account + arrow)
+  bottomContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: verticalScale(30),
+  },
+
+  accountText: {
+    fontFamily: "Raleway_300Light",
+    fontSize: moderateScale(15),
+    color: "#202020",
+  },
+
   arrowButton: {
     marginLeft: scale(10),
     width: scale(30),
@@ -448,25 +146,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  keyboard: {
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    backgroundColor: "#eee",
-    padding: 10,
-  },
-  key: {
-    width: scale(60),
-    height: scale(60),
-    margin: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#004CFF",
-    borderRadius: scale(10),
-  },
-  keyText: { color: "#fff", fontSize: moderateScale(20), fontWeight: "bold" },
->>>>>>> 917750e8fc2b59ab84551bd981a052b8901ece9f
 });
