@@ -3,10 +3,12 @@ import { useRouter } from "expo-router";
 import React from "react";
 import {
   ImageBackground,
+  Keyboard,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 
@@ -14,6 +16,7 @@ const Login = () => {
   const router=useRouter();
   return (
     <ScreenWrapper bg={"black"}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ImageBackground
         style={styles.background}
         resizeMode="cover"
@@ -36,12 +39,13 @@ const Login = () => {
           <Text style={styles.btnText}>Next</Text>
         </TouchableOpacity>
         <TouchableOpacity style={{ marginTop: 20,alignContent:'center',alignItems:'center' }}>
-          <Text style={{ color: "black", textDecorationLine: "underline" }}>
+          <Text style={{ color: "black"}}>
             Cancel
           </Text>
         </TouchableOpacity>
         </View>
       </ImageBackground>
+      </TouchableWithoutFeedback>
     </ScreenWrapper>
   );
 };
