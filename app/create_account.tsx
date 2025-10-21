@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import * as ImagePicker from 'expo-image-picker';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import {
   Alert,
@@ -63,7 +64,7 @@ export default function Create_account() {
 
     if (photo && trimmedPhone.length === 10 && isNumeric) {
       // ✅ all info filled correctly
-      navigation.navigate('otp_confirm');
+      router.push('./password')
     } else {
       // ❌ missing info
       Alert.alert(
@@ -76,7 +77,7 @@ export default function Create_account() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ImageBackground
-        source={require('@/assets/images/CreateAccount.png')}
+        source={require('@/assets/images/create_account.png')}
         style={styles.background}
         resizeMode="cover"
       >

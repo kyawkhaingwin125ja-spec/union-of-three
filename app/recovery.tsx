@@ -90,7 +90,7 @@ const Recovery: React.FC = () => {
               <Text style={{ color: "white", fontWeight: "bold" }}>Send Again</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{router.back()}}>
               <Text
                 style={{
                   color: "black",
