@@ -12,6 +12,7 @@ export default function RootLayout() {
       <Stack.Screen name="recovery"/>
       <Stack.Screen name="newpassword"/>
       <Stack.Screen name="hello_card"/>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
   );
 }
