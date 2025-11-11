@@ -56,17 +56,23 @@ const Index = () => {
   }, [currentIndex]);
 
   // Product card
-  const renderGoodsItem = ({ item }) => (
+  interface GoodsItem {
+    id: number;
+    name: string;
+    price: string;
+    image: any;
+  }
+  
+  const renderGoodsItem = ({ item }: { item: GoodsItem }) => (
     <TouchableOpacity style={styles.card}>
       <Image source={item.image} style={styles.goodsImage} resizeMode="contain" />
-      <Text style={styles.goodsName} numberOfLines={1}>
-        {item.name}
-      </Text>
-      {/* Divider line between name and price */}
+      <Text style={styles.goodsName} numberOfLines={1}>{item.name}</Text>
       <View style={styles.divider} />
       <Text style={styles.price}>{item.price}</Text>
     </TouchableOpacity>
   );
+  
+
 
   return (
     <ScreenWrapper>

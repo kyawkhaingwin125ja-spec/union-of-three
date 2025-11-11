@@ -171,7 +171,7 @@ export default function PasswordTyping() {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.bottomKey, styles.goKey]}
-              onPress={() => handleKeyPress("Go")}
+              onPress={() => router.push("../(tabs)")}
             >
               <Text style={[styles.keyText, { color: "#fff", fontWeight: "bold" }]}>
                 Go
