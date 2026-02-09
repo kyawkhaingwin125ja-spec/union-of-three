@@ -1,3 +1,4 @@
+
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -35,7 +36,7 @@ const Login = () => {
             keyboardType="phone-pad"
           />
         </View>
-        <TouchableOpacity style={styles.btn}  onPress={()=>router.push('/recovery')}>
+        <TouchableOpacity style={styles.btn}  onPress={()=>router.push('/password')}>
           <Text style={styles.btnText}>Next</Text>
         </TouchableOpacity>
         <TouchableOpacity style={{ marginTop: 20,alignContent:'center',alignItems:'center' }}>
@@ -94,3 +95,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
